@@ -187,7 +187,11 @@
   footer img{height:30px}
 
   @media (max-width:860px){
-    .topbar nav{display:none}
+    .topbar .wrap{flex-direction:column;align-items:stretch;gap:8px;padding-top:8px;padding-bottom:8px}
+    .topbar img{height:36px;align-self:center}
+    .topbar nav{display:flex;flex-wrap:nowrap;overflow-x:auto;gap:2px;-webkit-overflow-scrolling:touch}
+    .topbar nav a{flex:none;white-space:nowrap;font-size:13px;padding:6px 8px}
+    section[id]{scroll-margin-top:110px}
     .profile,.two,.swot{grid-template-columns:1fr}
     .cta{grid-template-columns:1fr}
     .sources{columns:1}
@@ -195,7 +199,7 @@
   }
   @media (max-width:520px){
     .wrap{padding:0 16px}
-    .topbar img{height:42px}
+    .topbar img{height:32px}
     .bar-row{grid-template-columns:84px 1fr 36px}
     .stat-row{grid-template-columns:1fr 1fr 1fr}
     .matrix{height:380px}
