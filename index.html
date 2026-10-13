@@ -1,0 +1,551 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ניתוח SWOT שיווקי – פרופימקס</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#1a3e60;
+    --navy-2:#355472;
+    --navy-soft:#8397a9;
+    --red:#ce2127;
+    --cyan:#39c0ef;
+    --cyan-ink:#0b7aa3;
+    --ink:#242424;
+    --ink-2:#58595b;
+    --line:#e3e6ea;
+    --bg:#f6f6f6;
+    --card:#ffffff;
+    --s-col:var(--navy);
+    --w-col:var(--red);
+    --o-col:var(--cyan-ink);
+    --t-col:#434244;
+    --radius:14px;
+    --shadow:0 1px 2px rgba(26,62,96,.06),0 6px 24px rgba(26,62,96,.07);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:"Heebo",Arial,sans-serif;font-size:16px;line-height:1.65}
+  a{color:var(--navy)}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 20px}
+
+  /* ---------- Header ---------- */
+  .topbar{background:#fff;border-bottom:4px solid var(--red);position:sticky;top:0;z-index:10}
+  .topbar .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-top:12px;padding-bottom:12px}
+  .topbar img{height:52px;width:auto;display:block}
+  .topbar nav{display:flex;gap:4px;flex-wrap:wrap}
+  .topbar nav a{font-size:14px;font-weight:500;text-decoration:none;color:var(--navy);padding:6px 10px;border-radius:8px}
+  .topbar nav a:hover{background:#eef2f6}
+
+  .hero{background:linear-gradient(135deg,var(--navy) 0%,#12304d 60%,#0e2740 100%);color:#fff;position:relative;overflow:hidden}
+  .hero::after{content:"";position:absolute;inset:auto -120px -160px auto;width:420px;height:420px;border-radius:50%;border:60px solid rgba(57,192,239,.12)}
+  .hero .wrap{padding-top:56px;padding-bottom:64px;position:relative;z-index:1}
+  .eyebrow{display:inline-block;font-size:13px;font-weight:700;letter-spacing:.04em;color:var(--cyan);background:rgba(57,192,239,.12);padding:4px 12px;border-radius:999px;margin-bottom:14px}
+  .hero h1{font-size:clamp(30px,5vw,48px);line-height:1.15;margin:0 0 12px;font-weight:800}
+  .hero h1 span{color:var(--cyan)}
+  .hero p{max-width:720px;margin:0;color:#d5dde6;font-size:18px}
+  .meta{margin-top:22px;display:flex;gap:18px;flex-wrap:wrap;font-size:14px;color:#aebccb}
+  .meta b{color:#fff;font-weight:500}
+
+  /* ---------- Sections ---------- */
+  section{padding:56px 0}
+  .sec-head{display:flex;align-items:baseline;gap:14px;margin-bottom:24px}
+  .sec-num{font-size:14px;font-weight:800;color:#fff;background:var(--red);width:30px;height:30px;border-radius:8px;display:inline-grid;place-items:center;flex:none}
+  h2{font-size:clamp(24px,3.2vw,32px);margin:0;color:var(--navy);font-weight:800;line-height:1.2}
+  .sec-sub{color:var(--ink-2);margin:-12px 0 26px;max-width:780px}
+  h3{margin:0 0 8px;font-size:18px;color:var(--navy)}
+  .card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:22px}
+
+  /* KPI tiles */
+  .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px;margin-top:-40px;position:relative;z-index:2}
+  .kpi{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:18px 18px 16px;border-top:4px solid var(--navy)}
+  .kpi:nth-child(2){border-top-color:var(--cyan)}
+  .kpi:nth-child(3){border-top-color:var(--red)}
+  .kpi:nth-child(5){border-top-color:var(--cyan)}
+  .kpi .v{font-size:30px;font-weight:800;color:var(--navy);line-height:1.1;direction:ltr;text-align:right}
+  .kpi .l{font-size:14px;color:var(--ink-2);margin-top:4px}
+  .kpi .n{font-size:12px;color:var(--navy-soft);margin-top:6px}
+
+  /* Profile grid */
+  .profile{display:grid;grid-template-columns:1.2fr 1fr;gap:18px}
+  .facts{list-style:none;margin:0;padding:0}
+  .facts li{display:grid;grid-template-columns:120px 1fr;gap:12px;padding:10px 0;border-bottom:1px solid var(--line);font-size:15px}
+  .facts li:last-child{border-bottom:0}
+  .facts b{color:var(--navy);font-weight:700}
+  .pill{display:inline-block;font-size:13px;padding:3px 10px;border-radius:999px;background:#eef2f6;color:var(--navy);margin:3px 0 3px 4px;font-weight:500}
+
+  /* Channels */
+  .channels{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}
+  .ch{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:18px;position:relative}
+  .ch .ico{width:38px;height:38px;border-radius:10px;display:grid;place-items:center;background:#eef2f6;color:var(--navy);margin-bottom:10px}
+  .ch .ico svg{width:20px;height:20px}
+  .ch p{margin:0;font-size:14.5px;color:var(--ink-2)}
+  .grade{position:absolute;top:16px;left:16px;font-size:12px;font-weight:700;padding:3px 10px;border-radius:999px}
+  .g-good{background:#e3f1fb;color:var(--cyan-ink)}
+  .g-mid{background:#fff4dc;color:#8a5a00}
+  .g-bad{background:#fde8e8;color:var(--red)}
+  .g-na{background:#eceef1;color:var(--ink-2)}
+  .method{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:18px 20px;margin-bottom:18px;display:grid;grid-template-columns:1.1fr 1fr;gap:22px;font-size:14.5px;color:var(--ink-2)}
+  .method h3{font-size:16px;margin-bottom:6px}
+  .method ol{margin:0;padding-inline-start:18px}
+  .method ol li{margin-bottom:4px}
+  .method ol b{color:var(--navy)}
+  .legend{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+  .legend li{display:grid;grid-template-columns:132px 1fr;gap:10px;align-items:center}
+  .legend .grade{position:static;text-align:center;white-space:nowrap}
+  .method .note{margin-top:8px}
+  @media (max-width:860px){.method{grid-template-columns:1fr}}
+
+  /* SWOT */
+  .swot{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .q{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column}
+  .q-head{display:flex;align-items:center;gap:14px;padding:16px 20px;color:#fff}
+  .q-letter{font-size:40px;font-weight:800;line-height:1;opacity:.95;font-family:Arial,sans-serif}
+  .q-title{font-size:20px;font-weight:800;line-height:1.2}
+  .q-title small{display:block;font-size:13px;font-weight:400;opacity:.85}
+  .q-s .q-head{background:var(--s-col)}
+  .q-w .q-head{background:var(--w-col)}
+  .q-o .q-head{background:var(--o-col)}
+  .q-t .q-head{background:var(--t-col)}
+  .q ol{margin:0;padding:16px 20px 18px 20px;padding-inline-start:20px;list-style:none;counter-reset:i}
+  .q li{position:relative;padding:9px 0 9px 0;padding-inline-start:34px;border-bottom:1px dashed var(--line);font-size:15px}
+  .q li:last-child{border-bottom:0}
+  .q li::before{counter-increment:i;content:counter(i);position:absolute;inset-inline-start:0;top:10px;width:24px;height:24px;border-radius:50%;font-size:12px;font-weight:700;display:grid;place-items:center;color:#fff}
+  .q-s li::before{background:var(--s-col)}
+  .q-w li::before{background:var(--w-col)}
+  .q-o li::before{background:var(--o-col)}
+  .q-t li::before{background:var(--t-col)}
+  .q li b{color:var(--ink)}
+  .tag{display:inline-block;font-size:11px;font-weight:700;padding:1px 8px;border-radius:999px;background:#fde8e8;color:var(--red);margin-inline-start:6px;vertical-align:1px}
+
+  /* Engagement chart */
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .bars{display:flex;flex-direction:column;gap:12px;margin-top:10px}
+  .bar-row{display:grid;grid-template-columns:110px 1fr 44px;align-items:center;gap:10px;font-size:14px}
+  .bar-track{background:#eef2f6;border-radius:6px;height:22px;overflow:hidden}
+  .bar{height:100%;border-radius:6px;background:var(--navy)}
+  .bar.alt{background:var(--navy-soft)}
+  .bar-val{font-weight:700;color:var(--navy);text-align:left;direction:ltr}
+  .bignum{font-size:46px;font-weight:800;color:var(--red);line-height:1;direction:ltr;text-align:right}
+  .note{font-size:13px;color:var(--navy-soft);margin-top:10px}
+  .stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px}
+  .stat-row div{background:#f6f8fa;border-radius:10px;padding:12px}
+  .stat-row b{display:block;font-size:22px;color:var(--navy);direction:ltr;text-align:right}
+  .stat-row span{font-size:13px;color:var(--ink-2)}
+
+  /* Funnel */
+  .funnel{display:flex;flex-direction:column;align-items:center;gap:6px;margin-top:6px}
+  .step{color:#fff;text-align:center;padding:11px 14px;border-radius:8px;font-size:14.5px;font-weight:500;position:relative}
+  .step small{display:block;font-weight:300;opacity:.85;font-size:12.5px}
+  .step.flag{outline:3px solid var(--red);outline-offset:2px}
+  .flag-note{font-size:12.5px;color:var(--red);font-weight:700;margin:-2px 0 2px}
+
+  /* Hygiene checklist */
+  .issues{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+  .issue{background:#fff;border-radius:12px;box-shadow:var(--shadow);padding:14px 16px;display:flex;gap:12px;align-items:flex-start;border-inline-start:4px solid var(--red)}
+  .issue .x{flex:none;width:26px;height:26px;border-radius:50%;background:#fde8e8;color:var(--red);display:grid;place-items:center;font-weight:800;font-size:14px}
+  .issue b{display:block;color:var(--navy);font-size:15px}
+  .issue span{font-size:14px;color:var(--ink-2)}
+
+  /* Roadmap */
+  .road{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:14px}
+  .r{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:18px 18px 16px;display:grid;grid-template-columns:48px 1fr;gap:14px}
+  .r .p{width:48px;height:48px;border-radius:12px;background:var(--navy);color:#fff;font-weight:800;font-size:22px;display:grid;place-items:center}
+  .r:nth-child(-n+2) .p{background:var(--red)}
+  .r p{margin:0;font-size:14.5px;color:var(--ink-2)}
+  .links{margin-top:8px}
+  .links .pill{font-size:11.5px;background:#f1f4f7}
+
+  /* Matrix */
+  .matrix{position:relative;height:340px;border-radius:var(--radius);background:#fff;box-shadow:var(--shadow);overflow:hidden}
+  .matrix .grid{position:absolute;inset:40px 50px 44px 20px;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;border:1px solid var(--line)}
+  .matrix .cell{border:1px dashed var(--line);font-size:12px;color:var(--navy-soft);padding:6px 8px;font-weight:700;display:flex;align-items:flex-end}
+  .matrix .cell.hot{background:rgba(57,192,239,.08);color:var(--cyan-ink)}
+  .dot{position:absolute;transform:translate(50%,-50%);background:var(--navy);color:#fff;font-size:12px;font-weight:700;padding:4px 9px;border-radius:999px;white-space:nowrap;box-shadow:0 2px 6px rgba(0,0,0,.15)}
+  .dot.red{background:var(--red)}
+  .axis-y{position:absolute;right:16px;top:50%;transform:translateY(-50%);writing-mode:vertical-rl;font-size:12px;color:var(--ink-2);font-weight:700;white-space:nowrap}
+  .axis-x{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);font-size:12px;color:var(--ink-2);font-weight:700}
+
+  /* CTA band */
+  .cta{background:var(--navy);color:#fff;border-radius:var(--radius);padding:30px;display:grid;grid-template-columns:1fr auto;gap:20px;align-items:center}
+  .cta h3{color:#fff;font-size:22px}
+  .cta p{margin:0;color:#d5dde6}
+  .cta .badge{background:var(--red);color:#fff;font-weight:800;padding:12px 18px;border-radius:12px;font-size:15px;text-align:center}
+
+  .caveats{font-size:14px;color:var(--ink-2)}
+  .caveats li{margin-bottom:6px}
+  .sources{columns:2;column-gap:28px;font-size:13px;padding-inline-start:18px}
+  .sources li{break-inside:avoid;margin-bottom:6px}
+  .sources a{word-break:break-word}
+
+  footer{background:#fff;border-top:1px solid var(--line);padding:22px 0;font-size:13px;color:var(--ink-2)}
+  footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+  footer img{height:30px}
+
+  @media (max-width:860px){
+    .topbar nav{display:none}
+    .profile,.two,.swot{grid-template-columns:1fr}
+    .cta{grid-template-columns:1fr}
+    .sources{columns:1}
+    .facts li{grid-template-columns:96px 1fr}
+  }
+  @media (max-width:520px){
+    .wrap{padding:0 16px}
+    .topbar img{height:42px}
+    .bar-row{grid-template-columns:84px 1fr 36px}
+    .stat-row{grid-template-columns:1fr 1fr 1fr}
+    .matrix{height:380px}
+    .dot{font-size:11px;padding:3px 7px}
+  }
+  @media print{
+    .topbar{position:static}
+    section{padding:28px 0;break-inside:avoid}
+    .q,.card,.r,.issue,.ch{box-shadow:none;border:1px solid var(--line)}
+  }
+  .method-toggle{margin-bottom:18px}
+  .method-toggle summary{width:fit-content;cursor:pointer;padding:10px 16px;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--navy);font-size:14px;font-weight:700}
+  .method-toggle summary:hover{background:#eef2f6}
+  .method-toggle summary:focus-visible{outline:3px solid var(--cyan-ink);outline-offset:3px}
+  .method-toggle[open] summary{margin-bottom:12px}
+  .method-toggle .method{margin-bottom:0}
+  .action-steps{padding-inline-start:20px;margin:12px 0;font-size:14.5px;color:var(--ink-2)}
+  .action-steps li{margin-bottom:10px}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wrap">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQkAAAA9CAMAAACJKmxZAAAJ8GlUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4gPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNi4wLWMwMDIgMTE2LjE2NDY1NSwgMjAyMS8wMS8yNi0xNTo0MToyMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczpkYz0iaHR0cDovL3B1cmwub3JnL2RjL2VsZW1lbnRzLzEuMS8iIHhtbG5zOnBob3Rvc2hvcD0iaHR0cDovL25zLmFkb2JlLmNvbS9waG90b3Nob3AvMS4wLyIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0RXZ0PSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VFdmVudCMiIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bXA6Q3JlYXRvclRvb2w9IkFkb2JlIFBob3Rvc2hvcCAyMS4yIChNYWNpbnRvc2gpIiB4bXA6Q3JlYXRlRGF0ZT0iMjAyMS0wNy0wNVQxOToxNDo1MiswMzowMCIgeG1wOk1vZGlmeURhdGU9IjIwMjEtMDctMDVUMTk6MjE6MDIrMDM6MDAiIHhtcDpNZXRhZGF0YURhdGU9IjIwMjEtMDctMDVUMTk6MjE6MDIrMDM6MDAiIGRjOmZvcm1hdD0iaW1hZ2UvcG5nIiBwaG90b3Nob3A6Q29sb3JNb2RlPSIzIiBwaG90b3Nob3A6SUNDUHJvZmlsZT0ic1JHQiBJRUM2MTk2Ni0yLjEiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6NGNmYWQ2ZTktMGJlOC00Yzc3LThhZWQtNTFjNzgzZGUwZDhlIiB4bXBNTTpEb2N1bWVudElEPSJhZG9iZTpkb2NpZDpwaG90b3Nob3A6YTFiNTJhYmQtYTBlMi05MDQ5LThkMWUtNTA0OTY3Y2Y3YzAwIiB4bXBNTTpPcmlnaW5hbERvY3VtZW50SUQ9InhtcC5kaWQ6NDk2MmNjZmMtOWE2Yy00MmEzLWFhNWYtNzIwZmZmOTg0NTY2Ij4gPHhtcE1NOkhpc3Rvcnk+IDxyZGY6U2VxPiA8cmRmOmxpIHN0RXZ0OmFjdGlvbj0iY3JlYXRlZCIgc3RFdnQ6aW5zdGFuY2VJRD0ieG1wLmlpZDo0OTYyY2NmYy05YTZjLTQyYTMtYWE1Zi03MjBmZmY5ODQ1NjYiIHN0RXZ0OndoZW49IjIwMjEtMDctMDVUMTk6MTQ6NTIrMDM6MDAiIHN0RXZ0OnNvZnR3YXJlQWdlbnQ9IkFkb2JlIFBob3Rvc2hvcCAyMS4yIChNYWNpbnRvc2gpIi8+IDxyZGY6bGkgc3RFdnQ6YWN0aW9uPSJjb252ZXJ0ZWQiIHN0RXZ0OnBhcmFtZXRlcnM9ImZyb20gaW1hZ2UvcG5nIHRvIGFwcGxpY2F0aW9uL3ZuZC5hZG9iZS5waG90b3Nob3AiLz4gPHJkZjpsaSBzdEV2dDphY3Rpb249InNhdmVkIiBzdEV2dDppbnN0YW5jZUlEPSJ4bXAuaWlkOmUyNzM3MzAwLWJkYjQtNGNjNi1iODJhLWUwZGRlN2I3ZmYyYiIgc3RFdnQ6d2hlbj0iMjAyMS0wNy0wNVQxOToyMDozOCswMzowMCIgc3RFdnQ6c29mdHdhcmVBZ2VudD0iQWRvYmUgUGhvdG9zaG9wIDIxLjIgKE1hY2ludG9zaCkiIHN0RXZ0OmNoYW5nZWQ9Ii8iLz4gPHJkZjpsaSBzdEV2dDphY3Rpb249InNhdmVkIiBzdEV2dDppbnN0YW5jZUlEPSJ4bXAuaWlkOmU1ZTVlMDlhLTU2ZDQtNDg0MS04NGFkLWViMDE4MWMzMDU2NyIgc3RFdnQ6d2hlbj0iMjAyMS0wNy0wNVQxOToyMTowMiswMzowMCIgc3RFdnQ6c29mdHdhcmVBZ2VudD0iQWRvYmUgUGhvdG9zaG9wIDIxLjIgKE1hY2ludG9zaCkiIHN0RXZ0OmNoYW5nZWQ9Ii8iLz4gPHJkZjpsaSBzdEV2dDphY3Rpb249ImNvbnZlcnRlZCIgc3RFdnQ6cGFyYW1ldGVycz0iZnJvbSBhcHBsaWNhdGlvbi92bmQuYWRvYmUucGhvdG9zaG9wIHRvIGltYWdlL3BuZyIvPiA8cmRmOmxpIHN0RXZ0OmFjdGlvbj0iZGVyaXZlZCIgc3RFdnQ6cGFyYW1ldGVycz0iY29udmVydGVkIGZyb20gYXBwbGljYXRpb24vdm5kLmFkb2JlLnBob3Rvc2hvcCB0byBpbWFnZS9wbmciLz4gPHJkZjpsaSBzdEV2dDphY3Rpb249InNhdmVkIiBzdEV2dDppbnN0YW5jZUlEPSJ4bXAuaWlkOjRjZmFkNmU5LTBiZTgtNGM3Ny04YWVkLTUxYzc4M2RlMGQ4ZSIgc3RFdnQ6d2hlbj0iMjAyMS0wNy0wNVQxOToyMTowMiswMzowMCIgc3RFdnQ6c29mdHdhcmVBZ2VudD0iQWRvYmUgUGhvdG9zaG9wIDIxLjIgKE1hY2ludG9zaCkiIHN0RXZ0OmNoYW5nZWQ9Ii8iLz4gPC9yZGY6U2VxPiA8L3htcE1NOkhpc3Rvcnk+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOmU1ZTVlMDlhLTU2ZDQtNDg0MS04NGFkLWViMDE4MWMzMDU2NyIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo0OTYyY2NmYy05YTZjLTQyYTMtYWE1Zi03MjBmZmY5ODQ1NjYiIHN0UmVmOm9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo0OTYyY2NmYy05YTZjLTQyYTMtYWE1Zi03MjBmZmY5ODQ1NjYiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5eCOlfAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAY1BMVEVHcEzOISfOISfOISfOISfOISfOISfOIScaPmAaPmDOISfOISfOISfOIScaPmAaPmDOIScaPmAaPmAaPmAaPmAaPmAaPmAaPmDOIScaPmAaPmDO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" alt="Profimex – פרופימקס">
+    <nav>
+      <a href="#profile">תמונת מצב</a>
+      <a href="#channels">ערוצים</a>
+      <a href="#swot">SWOT</a>
+      <a href="#data">נתונים</a>
+      <a href="#plan">תוכנית עבודה</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <span class="eyebrow">ניתוח שיווקי · אוקטובר 2026</span>
+    <h1>ניתוח SWOT של <span>הפעילות השיווקית</span> של פרופימקס</h1>
+    <p>תמונת מצב של המותג, הערוצים והמשפך השיווקי של פרופימקס, על בסיס מקורות פומביים: אתר החברה, לינקדאין והעיתונות הכלכלית. בהמשך: נקודות החוזק, הפערים וההזדמנויות לצמיחה.</p>
+    <div class="meta">
+      <div>תאריך: <b>13.10.2026</b></div>
+      <div>מקורות: <b>profimex.com · LinkedIn · כלכליסט · גלובס · ביזפורטל · ICE</b></div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="kpis" aria-label="נתוני מפתח">
+    <div class="kpi"><div class="v">29</div><div class="l">שנות פעילות בנדל"ן גלובלי</div><div class="n">מאז 1997 · החברה האם הוקמה ב-1969</div></div>
+    <div class="kpi"><div class="v">~2,700</div><div class="l">משקיעים</div><div class="n">פרטיים, חברות, קיבוצים ומוסדיים</div></div>
+    <div class="kpi"><div class="v">$56B+</div><div class="l">שווי נכסים שבהם השקיעה החברה עם שותפיה</div><div class="n">ובלינקדאין כתוב <bdi dir="ltr">~$60B</bdi></div></div>
+    <div class="kpi"><div class="v">34</div><div class="l">קרנות</div><div class="n">מתוכן 6 קרנות CircleOne</div></div>
+    <div class="kpi"><div class="v">2,228</div><div class="l">עוקבים בלינקדאין</div><div class="n">ממוצע של 3.9 תגובות לפוסט</div></div>
+  </div>
+</div>
+
+<!-- 1. Profile -->
+<section id="profile">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">1</span><h2>תמונת מצב: מי זו פרופימקס</h2></div>
+    <div class="profile">
+      <div class="card">
+        <ul class="facts">
+          <li><b>פעילות</b><span>בית השקעות שמנגיש למשקיעים ישראלים השקעות נדל"ן והשקעות אלטרנטיביות בחו"ל, דרך שותפים מקומיים (כ-29 מנהלי השקעות בארה"ב ובאירופה).</span></li>
+          <li><b>קהל יעד</b><span>משקיעים כשירים (סכום השקעה מינימלי של <bdi dir="ltr">100–500</bdi> אלף דולר), משרדים משפחתיים, חברות, קיבוצים וגופים מוסדיים.</span></li>
+          <li><b>מוצרים</b><span>
+            <span class="pill">CircleOne</span><span class="pill">Co-Investments</span><span class="pill">Feeder Funds</span><span class="pill">CIP</span><span class="pill">Momentum Portfolio</span></span></li>
+          <li><b>הנהלה וקול</b><span>אלחנן רוזנהיים (מייסד ומנכ"ל), אסף רוזנהיים (דירקטור וכותב התוכן המרכזי), יוגב יגודה (אנליסט ראשי)</span></li>
+          <li><b>גודל צוות</b><span><bdi dir="ltr">11–50</bdi> עובדים · משרדים ברעננה</span></li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>המסרים המרכזיים של המותג</h3>
+        <ul class="facts">
+          <li><b>אמון</b><span>"להשקיע עם אנשים שראויים לאמון שלך"</span></li>
+          <li><b>שקיפות</b><span>לדברי החברה, היא מציגה גם השקעות שהפסידו</span></li>
+          <li><b>יישור אינטרסים</b><span>תגמול המנהלים מבוסס הצלחה, וחברי הוועדה משקיעים מכספם</span></li>
+          <li><b>פיזור-על</b><span>פיזור לפי מדינה, סקטור, אסטרטגיה ומנהל</span></li>
+          <li><b>בלעדיות</b><span>מועדון InnerCircle, שרק חבריו מקבלים נתונים מלאים על ההשקעות</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 2. Channels -->
+<section id="channels" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">2</span><h2>מפת הערוצים השיווקיים</h2></div>
+    <p class="sec-sub">הערכה איכותנית של כל ערוץ לפי מה שנמצא בבדיקה הפומבית.</p>
+    <details class="method-toggle">
+      <summary>איך נקבע הדירוג? שיטת הבדיקה ומקרא</summary>
+    <div class="method">
+      <div>
+        <h3>איך נקבע הדירוג?</h3>
+        <p style="margin:0 0 8px">כל ערוץ נבדק לפי ארבעה קריטריונים, על בסיס מה שגלוי לכל מבקר:</p>
+        <ol>
+          <li><b>עקביות ותדירות:</b> האם הערוץ פעיל ומתעדכן באופן קבוע (למשל, תאריכי פרסום של מאמרים ופוסטים).</li>
+          <li><b>איכות ורלוונטיות:</b> עד כמה התוכן מקצועי, עדכני ומדבר אל משקיע כשיר.</li>
+          <li><b>חשיפה ומעורבות:</b> כמה אנשים הערוץ מגיע אליהם בפועל (מספר עוקבים, תגובות ושיתופים, היכן שאפשר לראות אותם).</li>
+          <li><b>חיבור למשפך:</b> האם הערוץ מוביל לשלב הבא, כמו השארת פרטים, הרשמה או פגישה.</li>
+        </ol>
+      </div>
+      <div>
+        <h3>מקרא</h3>
+        <ul class="legend">
+          <li><span class="grade g-good">חזק / ייחודי</span><span>עומד ברוב הקריטריונים, או מהווה בידול שאין למתחרים</span></li>
+          <li><span class="grade g-mid">בינוני / דורש תיקון</span><span>בסיס טוב, אבל יש פער מהותי בקריטריון אחד או יותר</span></li>
+          <li><span class="grade g-bad">חלש</span><span>פעילות קיימת עם תוצאות נמוכות (לדוגמה, מעורבות של 0.17% בלינקדאין)</span></li>
+          <li><span class="grade g-na">לא נמדד</span><span>הנתונים לא נגישים בבדיקה חיצונית</span></li>
+        </ul>
+        <p class="note">הדירוג הוא הערכה מקצועית ולא מדידה כמותית. אין לנו גישה לנתוני תנועה, להמרות או ל-Analytics של החברה.</p>
+      </div>
+    </div>
+    </details>
+    <div class="channels">
+      <div class="ch"><span class="grade g-good">חזק</span>
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M8 8h8M8 12h8M8 16h5"/></svg></div>
+        <h3>תוכן ומרכז ידע</h3><p><bdi dir="ltr">2–3</bdi> מאמרים בחודש בנושאים כמו מולטיפמילי, לוגיסטיקה, NNN, מרכזי נתונים והפד. תוכן מקצועי ומעמיק.</p></div>
+      <div class="ch"><span class="grade g-good">חזק</span>
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 5h18v14H3z"/><path d="m3 7 9 6 9-6"/></svg></div>
+        <h3>ניוזלטר GlobaLink</h3><p>סקירת שווקים חודשית שמקודמת גם בלינקדאין, ודו"חות להורדה בתמורה להשארת פרטים.</p></div>
+      <div class="ch"><span class="grade g-mid">בינוני</span>
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19h16M6 15V9M12 15V5M18 15v-3"/></svg></div>
+        <h3>יחסי ציבור ותקשורת</h3><p>טורים בכלכליסט, ביזפורטל וגלובס, ראיונות ברדיו ובפודקאסטים, ופרסום בינלאומי ב-AFIRE. חלק מהפרסומים הם תוכן ממומן.</p></div>
+      <div class="ch"><span class="grade g-good">ייחודי</span>
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/></svg></div>
+        <h3>מועדון InnerCircle</h3><p>מידע בלעדי לחברים, אירועים והטבות כמו הכשרה עם איחוד הצלה ובדיקות באיכילוב. על כל הפניה שמובילה להשקעה, החברה תורמת 1,800 ש"ח לצדקה.</p></div>
+      <div class="ch"><span class="grade g-mid">בינוני</span>
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="12" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
+        <h3>וובינרים "נקודת מבט"</h3><p>מפיקים ערך קהילתי, אבל רוב הנושאים (איראן, מגילת אסתר, חוסן) לא מקדמים החלטת השקעה.</p></div>
+      <div class="ch"><span class="grade g-bad">חלש</span>
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 10v7M8 7v.01M12 17v-4a2 2 0 0 1 4 0v4M12 10v7"/></svg></div>
+        <h3>לינקדאין</h3><p>2,228 עוקבים ומעורבות נמוכה מאוד. הקישורים מוסתרים ב"תגובה הראשונה", יש פוסטים כפולים, וכמעט כל התוכן בעברית.</p></div>
+      <div class="ch"><span class="grade g-mid">דורש תיקון</span>
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg></div>
+        <h3>אתר אינטרנט</h3><p>מבוסס WordPress עם Elementor ו-Yoast, וקיים בשש שפות. יש בו פערי תחזוקה ועקביות, וניווט עמוס.</p></div>
+      <div class="ch"><span class="grade g-na">לא נמדד</span>
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 8.5a3 3 0 0 0-2-2C18 6 12 6 12 6s-6 0-8 .5a3 3 0 0 0-2 2A31 31 0 0 0 2 12a31 31 0 0 0 0 3.5 3 3 0 0 0 2 2c2 .5 8 .5 8 .5s6 0 8-.5a3 3 0 0 0 2-2 31 31 0 0 0 0-7z"/><path d="m10 9 5 3-5 3z"/></svg></div>
+        <h3>יוטיוב · פייסבוק · וואטסאפ</h3><p>יש קישורים לערוצים אלה, אבל לא ניתן היה למדוד את הפעילות בהם. צריך לבדוק ידנית.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 3. SWOT -->
+<section id="swot" style="background:#fff">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">3</span><h2>ניתוח SWOT</h2></div>
+    <p class="sec-sub">חוזקות וחולשות הן גורמים פנימיים שבשליטת החברה. הזדמנויות ואיומים הם גורמים חיצוניים מהשוק ומהסביבה.</p>
+    <div class="swot">
+      <div class="q q-s">
+        <div class="q-head"><span class="q-letter">S</span><div class="q-title">חוזקות<small>Strengths – על מה לבנות</small></div></div>
+        <ol>
+          <li><b>ותק ואמינות:</b> 29 שנה בנדל"ן גלובלי, חברה אם מ-1969 וכ-2,700 משקיעים. בקטגוריה שבה ההחלטה נשענת על אמון, זה הנכס החזק ביותר.</li>
+          <li><b>מנוע תוכן מקצועי:</b> מאמרים מעמיקים ועקביים, וטורים בכלכליסט, בגלובס וב-AFIRE Summit Journal.</li>
+          <li><b>מייסדים כקול המותג:</b> אלחנן ואסף רוזנהיים מנוסחים, נחרצים ונגישים לתקשורת. הקביעה ש"80% מההצעות בשוק הן תרמית" ממצבת אותם בעמדה ייחודית.</li>
+          <li><b>שקיפות כבידול:</b> הצגת הפסדים, תגמול מבוסס הצלחה, החלטה פה אחד בוועדת ההשקעות וזכות וטו למנכ"ל.</li>
+          <li><b>InnerCircle:</b> מועדון שמשלב בלעדיות, קהילה והטבות לא שגרתיות, עם מנגנון הפניות שמבוסס על תרומה לצדקה.</li>
+          <li><b>מחקרים כמגנטי לידים:</b> דו"חות להורדה והקלטות וובינרים כבר אוספים לידים.</li>
+          <li><b>רשת שותפים גלובלית:</b> כ-29 מנהלים שמספקים סיפורי עסקאות מוחשיים, כמו Rock Mountain באטלנטה ו-The Maddox ביוסטון.</li>
+          <li><b>תשתית טכנית טובה:</b> WordPress, Yoast, GTM, hreflang ו-Schema. אפשר לשפר בלי לבנות את האתר מחדש.</li>
+        </ol>
+      </div>
+      <div class="q q-w">
+        <div class="q-head"><span class="q-letter">W</span><div class="q-title">חולשות<small>Weaknesses – הפערים</small></div></div>
+        <ol>
+          <li><b>תחלופה בהובלת השיווק:</b> משרת מנהל/ת שיווק פורסמה פעמיים, לפני כ-11 חודשים ושוב לפני כחודש. הקישור לעמוד הקריירה במודעה מחזיר שגיאת 404. <span class="tag">סימן מרכזי</span></li>
+          <li><b>לינקדאין לא מניב:</b> ממוצע של 3.9 תגובות לפוסט, קישורים ב"תגובה הראשונה", אותו טור שפורסם 3 פעמים, וכמעט כל התוכן בעברית.</li>
+          <li><b>וובינרים מחוץ לאסטרטגיה:</b> נושאים כמו איראן, מגילת אסתר וחוסן בונים אהדה, אבל לא מובילים לשלב הבא במשפך.</li>
+          <li><b>תחזוקת האתר:</b> זכויות יוצרים משנת 2021, שני מספרי טלפון שונים, נתונים לא עקביים ($56B מול $60B), כוכבית בלי הסבר ותמונות בלי טקסט חלופי.</li>
+          <li><b>חיכוך במשפך:</b> הטופס דורש מספר תעודת זהות והצהרת כשירות כבר בפנייה הראשונה.</li>
+          <li><b>מעט הוכחה חברתית:</b> אין המלצות של משקיעים, סרטוני לקוחות או ביקורות צד שלישי.</li>
+          <li><b>ניווט עמוס:</b> מדורים חופפים רבים, ובחירה רבה מדי בדרך אל "דברו איתנו".</li>
+          <li><b>אתר רב-לשוני ברמה בסיסית:</b> שש שפות, אבל רק תרגום ולא אסטרטגיה לכל שוק.</li>
+          <li><b>הסתמכות על תוכן ממומן:</b> כתבות "בחסות" נחשבות פחות אמינות בעיני משקיעים מתוחכמים.</li>
+        </ol>
+      </div>
+      <div class="q q-o">
+        <div class="q-head"><span class="q-letter">O</span><div class="q-title">הזדמנויות<small>Opportunities – לאן לצמוח</small></div></div>
+        <ol>
+          <li><b>CMO במיקור חוץ / ריטיינר שיווקי:</b> החברה כבר מגייסת, כלומר יש תקציב והצורך מוכר.</li>
+          <li><b>מיתוג אישי למייסדים:</b> תוכנית לינקדאין לאסף ולאלחנן, עם פוסטים מבוססי נתונים, קרוסלות ווידאו. פרופיל אישי מגיע בדרך כלל לחשיפה גבוהה פי <bdi dir="ltr">5–10</bdi> מעמוד חברה.</li>
+          <li><b>מובילות בנושא "אמון ובדיקת נאותות":</b> על רקע משבר אג"ח ה-BVI וקריסות של יזמים אמריקאים, אפשר לבנות צ'קליסט לבדיקת הצעות, דו"ח שנתי ומדריך לזיהוי סימני אזהרה.</li>
+          <li><b>וידאו ופודקאסט:</b> סקירות קצרות של נכסים והסברים בעברית שהופכים קרן מופשטת למשהו מוחשי.</li>
+          <li><b>קידום אורגני וחיפוש מבוסס AI:</b> מיקום בשאילתות כמו "השקעות נדל"ן בחו"ל" ו"משקיע כשיר", וציטוט בתשובות של AI Overviews ו-ChatGPT.</li>
+          <li><b>טיפוח לידים ו-CRM:</b> פילוח הניוזלטר, רצפי מיילים אוטומטיים אחרי וובינר או הורדת דו"ח, מעקב בוואטסאפ ו-Retargeting.</li>
+          <li><b>שותפויות עם מפנים:</b> רואי חשבון, עורכי דין, משרדים משפחתיים ובנקאים פרטיים.</li>
+          <li><b>וובינרים בשני מסלולים:</b> מסלול קהילתי לצד מסלול השקעות עם קריאה ברורה לפעולה.</li>
+          <li><b>הוכחה חברתית:</b> סיפורי משקיעים, ראיונות עם חברי InnerCircle ותיאורי מקרה של חלוקות ואקזיטים.</li>
+          <li><b>קהל דובר אנגלית:</b> עולים ומשקיעים אנגלו-ישראלים שעומדים בתנאי משקיע כשיר.</li>
+        </ol>
+      </div>
+      <div class="q q-t">
+        <div class="q-head"><span class="q-letter">T</span><div class="q-title">איומים<small>Threats – סיכונים לניהול</small></div></div>
+        <ol>
+          <li><b>פגיעה במוניטין של הקטגוריה:</b> הונאות וקריסות של יזמים שגייסו מישראלים גורמות לחשדנות כלפי כל מי שמשווק נדל"ן בחו"ל.</li>
+          <li><b>מגבלות רגולציה:</b> חוק ניירות ערך מתיר להציג תשואות רק למשקיעים כשירים, ולכן שיווק אגרסיבי שמבוסס על ביצועים אינו אפשרי.</li>
+          <li><b>תחרות גוברת:</b> בתי השקעות גדולים (אלטשולר שחם), פלטפורמות מימון המונים (הגשמה, מכ-25 אלף דולר) וקרנות REIT גלובליות.</li>
+          <li><b>מאקרו וגיאופוליטיקה:</b> ריבית גבוהה, מחזור חובות בנדל"ן מסחרי ומתיחות מול איראן מאריכים את מחזור קבלת ההחלטות.</li>
+          <li><b>שינוי באופן גילוי המידע:</b> משקיעים עשירים בודקים יותר דרך עוזרי AI ורשתות היכרויות. מי שאין לו תוכן מובנה וציטוטים צד שלישי מאבד נראות.</li>
+          <li><b>תלות באדם מרכזי:</b> התוכן נשען על אדם אחד או שניים מהמשפחה.</li>
+          <li><b>מוניטין של עסקאות עבר:</b> עסקאות כמו הבניינים במנהטן או כתבת 2003 על דיור מוגן בקנדה עלולות לעלות בחיפוש בלי הקשר.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. Data -->
+<section id="data">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">4</span><h2>נתונים מאחורי הממצאים</h2></div>
+    <div class="two">
+      <div class="card">
+        <h3>מעורבות בלינקדאין: פילוח תגובות ל-27 פוסטים אחרונים</h3>
+        <div class="bars" role="img" aria-label="התפלגות תגובות לפוסט: 0–2 תגובות 10 פוסטים, 3–5 תגובות 12 פוסטים, 6–9 תגובות 3 פוסטים, 10 ומעלה 2 פוסטים">
+          <div class="bar-row"><span><bdi dir="ltr">0–2</bdi> תגובות</span><div class="bar-track"><div class="bar" style="width:83%"></div></div><span class="bar-val">10</span></div>
+          <div class="bar-row"><span><bdi dir="ltr">3–5</bdi> תגובות</span><div class="bar-track"><div class="bar" style="width:100%"></div></div><span class="bar-val">12</span></div>
+          <div class="bar-row"><span><bdi dir="ltr">6–9</bdi> תגובות</span><div class="bar-track"><div class="bar alt" style="width:25%"></div></div><span class="bar-val">3</span></div>
+          <div class="bar-row"><span><bdi dir="ltr">10+</bdi> תגובות</span><div class="bar-track"><div class="bar alt" style="width:17%"></div></div><span class="bar-val">2</span></div>
+        </div>
+        <div class="stat-row">
+          <div><b>3.9</b><span>תגובות בממוצע לפוסט</span></div>
+          <div><b>0.17%</b><span>שיעור מעורבות לעוקב</span></div>
+          <div><b>14</b><span>השיא (פוסט המונדיאל)</span></div>
+        </div>
+        <p class="note">מקור: עמוד החברה בלינקדאין, אוקטובר 2026. 81% מהפוסטים קיבלו 5 תגובות או פחות.</p>
+      </div>
+      <div class="card">
+        <h3>משפך הלידים הנוכחי</h3>
+        <div class="funnel">
+          <div class="step" style="width:100%;background:var(--navy)">חשיפה<small>אתר, תוכן, יחסי ציבור, לינקדאין, ניוזלטר</small></div>
+          <div class="step" style="width:88%;background:var(--navy-2)">בדיקה עצמית<small>"האם אני משקיע כשיר?"</small></div>
+          <div class="step flag" style="width:76%;background:var(--navy-2)">טופס פנייה<small>כולל ת.ז., הצהרת כשירות ומדרגת השקעה</small></div>
+          <div class="flag-note">⚠ נקודת חיכוך: יותר מדי מידע רגיש כבר בשלב הראשון</div>
+          <div class="step" style="width:64%;background:#4a6a8a">פגישה עם מנהל השקעות</div>
+          <div class="step" style="width:52%;background:var(--navy-soft)">אימות מסמכים</div>
+          <div class="step" style="width:40%;background:var(--cyan-ink)">השקעה + InnerCircle<small>הפניות ותרומה</small></div>
+        </div>
+        <p class="note">חסר: רצף טיפוח אוטומטי בין שלב החשיפה לשלב הפנייה.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. Quick wins -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">5</span><h2>ממצאים לתיקון מיידי</h2></div>
+    <p class="sec-sub">תיקונים קלים ובולטים לעין, שמתאימים להצגה כבר בפגישה הראשונה.</p>
+    <div class="issues">
+      <div class="issue"><span class="x">!</span><div><b>עמוד הקריירה מחזיר 404</b><span>הקישור profimex.com/careers במודעת הגיוס האחרונה שבור</span></div></div>
+      <div class="issue"><span class="x">!</span><div><b>© 2021 בפוטר</b><span>האתר נראה לא מתוחזק</span></div></div>
+      <div class="issue"><span class="x">!</span><div><b>שני מספרי טלפון</b><span>‎09-7774444 מול ‎09-3720118</span></div></div>
+      <div class="issue"><span class="x">!</span><div><b>נתונים לא עקביים</b><span>$56B באתר מול $60B בלינקדאין, ו-29 שנה מול "שלושה עשורים"</span></div></div>
+      <div class="issue"><span class="x">!</span><div><b>כוכבית בלי הסבר</b><span>הנתון "$10 billion*" מופיע בלי הערת שוליים</span></div></div>
+      <div class="issue"><span class="x">!</span><div><b>אותו טור פורסם 3 פעמים</b><span>טור ממדאני הופיע בלינקדאין כשלושה פוסטים כמעט זהים</span></div></div>
+      <div class="issue"><span class="x">!</span><div><b>"אודות" מיושן בלינקדאין</b><span>עדיין מדבר על "המשבר הכלכלי הדועך", מסר מתקופת 2010</span></div></div>
+      <div class="issue"><span class="x">!</span><div><b>תמונות בלי טקסט חלופי</b><span>פוגע בנגישות ובקידום האורגני</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 6. Plan -->
+<section id="plan" style="background:#fff">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">6</span><h2>איפה נוכל לייצר ערך: תוכנית עבודה מוצעת</h2></div>
+    <div class="road">
+      <div class="r"><div class="p">1</div><div><h3>CMO במיקור חוץ / ריטיינר שיווקי</h3><p>אסטרטגיה, לוח תוכן וביצוע בזמן שהגיוס נמשך, ואחר כך ליווי של המנהל/ת החדש/ה.</p><div class="links"><span class="pill">W1</span><span class="pill">O1</span></div></div></div>
+      <div class="r"><div class="p">2</div><div><h3>תוכנית לינקדאין למייסדים</h3><p>3 פוסטים בשבוע, קרוסלות, וידאו קצר ואסטרטגיית תגובות, וגם ריענון עמוד החברה.</p><div class="links"><span class="pill">W2</span><span class="pill">O2</span></div></div></div>
+      <div class="r"><div class="p">3</div><div><h3>קמפיין "פלטפורמת האמון"</h3><p>מדריך לבדיקת נאותות, דו"ח שנתי ויחסי ציבור שמבוססים על חשיפה תקשורתית שאינה ממומנת.</p><div class="links"><span class="pill">S3–S4</span><span class="pill">O3</span><span class="pill">T1</span></div></div></div>
+      <div class="r"><div class="p">4</div><div><h3>בדיקת אתר ושיפור המרות</h3><p>תיקוני תחזוקה, טופס בשני שלבים, המלצות של משקיעים וניווט פשוט יותר.</p><div class="links"><span class="pill">W4–W7</span></div></div></div>
+      <div class="r"><div class="p">5</div><div><h3>קידום אורגני וחיפוש מבוסס AI</h3><p>מבנה תוכן, FAQ Schema וקישורים פנימיים לשאילתות ההשקעה המרכזיות בעברית.</p><div class="links"><span class="pill">O5</span><span class="pill">T5</span></div></div></div>
+      <div class="r"><div class="p">6</div><div><h3>אוטומציה וטיפוח לידים</h3><p>ניוזלטר מפולח, רצפים אחרי וובינר והורדת דו"ח, וואטסאפ ו-Retargeting.</p><div class="links"><span class="pill">O6</span><span class="pill">O8</span></div></div></div>
+      <div class="r"><div class="p">7</div><div><h3>סדרת וידאו</h3><p>סיורים בעסקאות וסרטונים קצרים על השוק, על בסיס התוכן של GlobaLink.</p><div class="links"><span class="pill">O4</span></div></div></div>
+      <div class="r"><div class="p">8</div><div><h3>הפעלת מועדון InnerCircle</h3><p>פניות אישיות למשקיעים קיימים ומפגשי "משקיע מביא אורח", במטרה לייצר הפניות של משקיעים כשירים חדשים ולתאם פגישות היכרות.</p><div class="links"><span class="pill">S5</span><span class="pill">O7–O8</span></div></div></div>
+      <div class="r"><div class="p">9</div><div><h3>חידוד מיתוג והצעת הערך</h3><p>מסרים ושפה חזותית אחידים שמבליטים את הניסיון, השקיפות ותהליך ההשקעה של פרופימקס, במטרה לחזק אמון ולעודד פנייה של משקיעים כשירים.</p><div class="links"><span class="pill">S1–S4</span><span class="pill">W4</span></div></div></div>
+    </div>
+
+    <h3 style="margin:36px 0 12px">מטריצת השפעה / מאמץ — שבע היוזמות המקוריות</h3>
+    <div class="matrix" role="img" aria-label="מטריצת השפעה מול מאמץ של שבע היוזמות">
+      <div class="grid">
+        <div class="cell hot">השפעה גבוהה · מאמץ נמוך</div>
+        <div class="cell">השפעה גבוהה · מאמץ גבוה</div>
+        <div class="cell">השפעה נמוכה · מאמץ נמוך</div>
+        <div class="cell">השפעה נמוכה · מאמץ גבוה</div>
+      </div>
+      <!-- x: right=low effort → left=high effort (RTL); y: top=high impact -->
+      <span class="dot red" style="right:24%;top:24%">4 · אתר</span>
+      <span class="dot red" style="right:38%;top:20%">2 · לינקדאין מייסדים</span>
+      <span class="dot" style="right:62%;top:22%">1 · CMO</span>
+      <span class="dot" style="right:72%;top:30%">3 · פלטפורמת אמון</span>
+      <span class="dot" style="right:44%;top:40%">6 · אוטומציה</span>
+      <span class="dot" style="right:84%;top:52%">5 · SEO / AI</span>
+      <span class="dot" style="right:76%;top:68%">7 · וידאו</span>
+      <span class="axis-y">השפעה ↑</span>
+      <span class="axis-x">מאמץ ←</span>
+    </div>
+
+    <div class="cta" style="margin-top:28px">
+      <div>
+        <h3>השורה התחתונה</h3>
+        <p>לפרופימקס יש את מה שקשה לקנות: ותק, אמון ותוכן מקצועי. מה שחסר הוא הפצה, עקביות והמרה. הגיוס הפתוח למנהל/ת שיווק מראה שהצורך מוכר והתקציב קיים.</p>
+      </div>
+      <div class="badge">זה הזמן להציע</div>
+    </div>
+  </div>
+</section>
+
+<!-- 7. Caveats & Sources -->
+<section>
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">7</span><h2>הסתייגויות ומקורות</h2></div>
+    <div class="two">
+      <div class="card caveats">
+        <h3>הסתייגויות</h3>
+        <ul>
+          <li>לא נמדדו עוקבים ופעילות בפייסבוק, ביוטיוב ובאינסטגרם, כי הדפים נטענים באופן דינמי. מומלץ לבדוק ידנית.</li>
+          <li>אין לנו נתוני תנועה לאתר, מיקומי מילות מפתח או הוצאות פרסום. מומלץ לבדוק ב-SimilarWeb, Semrush או Ahrefs ובספריות המודעות של Meta ולינקדאין.</li>
+          <li>כל נתוני ההיקף והביצועים מדווחים על ידי פרופימקס עצמה.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>מקורות</h3>
+        <ul class="sources">
+          <li><a href="https://www.profimex.com/" target="_blank" rel="noopener">profimex.com</a></li>
+          <li><a href="https://www.linkedin.com/company/profimex/" target="_blank" rel="noopener">LinkedIn – Profimex</a></li>
+          <li><a href="https://www.nadlancenter.co.il/article/8354" target="_blank" rel="noopener">מרכז הנדל"ן – ראיון עם אלחנן רוזנהיים</a></li>
+          <li><a href="https://www.bizportal.co.il/bizpoint-sponsored/news/article/783952" target="_blank" rel="noopener">ביזפורטל – תוכן בחסות (2020)</a></li>
+          <li><a href="https://www.ice.co.il/realestate/news/article/987244" target="_blank" rel="noopener">ICE – מכתב התמיכה (2023)</a></li>
+          <li><a href="https://en.globes.co.il/en/article-732829" target="_blank" rel="noopener">Globes – Profimex overseas sales</a></li>
+          <li><a href="https://en.globes.co.il/en/article-1000186905" target="_blank" rel="noopener">Globes – Profimex & Townsend</a></li>
+          <li><a href="https://en.globes.co.il/en/article-altshuler-shaham-to-offer-overseas-real-estate-investments-1001186863" target="_blank" rel="noopener">Globes – Altshuler Shaham</a></li>
+          <li><a href="https://en.globes.co.il/en/article-israelis-flock-to-overseas-real-estate-investment-funds-1001175225" target="_blank" rel="noopener">Globes – Israelis flock to overseas funds</a></li>
+          <li><a href="https://www.bisnow.com/news/national/capital-markets/israeli-real-estate-fund-to-expand-operations-to-new-york-67121" target="_blank" rel="noopener">Bisnow – Hagshama</a></li>
+          <li><a href="https://www.calcalistech.com/ctech/articles/0,7340,L-3773593,00.html" target="_blank" rel="noopener">Calcalist Tech</a></li>
+          <li><a href="https://www.griinstitute.org/realestate/company-profile/profimex-israel-ltd_3677" target="_blank" rel="noopener">GRI Institute</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQkAAAA9CAMAAACJKmxZAAAJ8GlUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4gPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNi4wLWMwMDIgMTE2LjE2NDY1NSwgMjAyMS8wMS8yNi0xNTo0MToyMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczpkYz0iaHR0cDovL3B1cmwub3JnL2RjL2VsZW1lbnRzLzEuMS8iIHhtbG5zOnBob3Rvc2hvcD0iaHR0cDovL25zLmFkb2JlLmNvbS9waG90b3Nob3AvMS4wLyIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0RXZ0PSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VFdmVudCMiIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bXA6Q3JlYXRvclRvb2w9IkFkb2JlIFBob3Rvc2hvcCAyMS4yIChNYWNpbnRvc2gpIiB4bXA6Q3JlYXRlRGF0ZT0iMjAyMS0wNy0wNVQxOToxNDo1MiswMzowMCIgeG1wOk1vZGlmeURhdGU9IjIwMjEtMDctMDVUMTk6MjE6MDIrMDM6MDAiIHhtcDpNZXRhZGF0YURhdGU9IjIwMjEtMDctMDVUMTk6MjE6MDIrMDM6MDAiIGRjOmZvcm1hdD0iaW1hZ2UvcG5nIiBwaG90b3Nob3A6Q29sb3JNb2RlPSIzIiBwaG90b3Nob3A6SUNDUHJvZmlsZT0ic1JHQiBJRUM2MTk2Ni0yLjEiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6NGNmYWQ2ZTktMGJlOC00Yzc3LThhZWQtNTFjNzgzZGUwZDhlIiB4bXBNTTpEb2N1bWVudElEPSJhZG9iZTpkb2NpZDpwaG90b3Nob3A6YTFiNTJhYmQtYTBlMi05MDQ5LThkMWUtNTA0OTY3Y2Y3YzAwIiB4bXBNTTpPcmlnaW5hbERvY3VtZW50SUQ9InhtcC5kaWQ6NDk2MmNjZmMtOWE2Yy00MmEzLWFhNWYtNzIwZmZmOTg0NTY2Ij4gPHhtcE1NOkhpc3Rvcnk+IDxyZGY6U2VxPiA8cmRmOmxpIHN0RXZ0OmFjdGlvbj0iY3JlYXRlZCIgc3RFdnQ6aW5zdGFuY2VJRD0ieG1wLmlpZDo0OTYyY2NmYy05YTZjLTQyYTMtYWE1Zi03MjBmZmY5ODQ1NjYiIHN0RXZ0OndoZW49IjIwMjEtMDctMDVUMTk6MTQ6NTIrMDM6MDAiIHN0RXZ0OnNvZnR3YXJlQWdlbnQ9IkFkb2JlIFBob3Rvc2hvcCAyMS4yIChNYWNpbnRvc2gpIi8+IDxyZGY6bGkgc3RFdnQ6YWN0aW9uPSJjb252ZXJ0ZWQiIHN0RXZ0OnBhcmFtZXRlcnM9ImZyb20gaW1hZ2UvcG5nIHRvIGFwcGxpY2F0aW9uL3ZuZC5hZG9iZS5waG90b3Nob3AiLz4gPHJkZjpsaSBzdEV2dDphY3Rpb249InNhdmVkIiBzdEV2dDppbnN0YW5jZUlEPSJ4bXAuaWlkOmUyNzM3MzAwLWJkYjQtNGNjNi1iODJhLWUwZGRlN2I3ZmYyYiIgc3RFdnQ6d2hlbj0iMjAyMS0wNy0wNVQxOToyMDozOCswMzowMCIgc3RFdnQ6c29mdHdhcmVBZ2VudD0iQWRvYmUgUGhvdG9zaG9wIDIxLjIgKE1hY2ludG9zaCkiIHN0RXZ0OmNoYW5nZWQ9Ii8iLz4gPHJkZjpsaSBzdEV2dDphY3Rpb249InNhdmVkIiBzdEV2dDppbnN0YW5jZUlEPSJ4bXAuaWlkOmU1ZTVlMDlhLTU2ZDQtNDg0MS04NGFkLWViMDE4MWMzMDU2NyIgc3RFdnQ6d2hlbj0iMjAyMS0wNy0wNVQxOToyMTowMiswMzowMCIgc3RFdnQ6c29mdHdhcmVBZ2VudD0iQWRvYmUgUGhvdG9zaG9wIDIxLjIgKE1hY2ludG9zaCkiIHN0RXZ0OmNoYW5nZWQ9Ii8iLz4gPHJkZjpsaSBzdEV2dDphY3Rpb249ImNvbnZlcnRlZCIgc3RFdnQ6cGFyYW1ldGVycz0iZnJvbSBhcHBsaWNhdGlvbi92bmQuYWRvYmUucGhvdG9zaG9wIHRvIGltYWdlL3BuZyIvPiA8cmRmOmxpIHN0RXZ0OmFjdGlvbj0iZGVyaXZlZCIgc3RFdnQ6cGFyYW1ldGVycz0iY29udmVydGVkIGZyb20gYXBwbGljYXRpb24vdm5kLmFkb2JlLnBob3Rvc2hvcCB0byBpbWFnZS9wbmciLz4gPHJkZjpsaSBzdEV2dDphY3Rpb249InNhdmVkIiBzdEV2dDppbnN0YW5jZUlEPSJ4bXAuaWlkOjRjZmFkNmU5LTBiZTgtNGM3Ny04YWVkLTUxYzc4M2RlMGQ4ZSIgc3RFdnQ6d2hlbj0iMjAyMS0wNy0wNVQxOToyMTowMiswMzowMCIgc3RFdnQ6c29mdHdhcmVBZ2VudD0iQWRvYmUgUGhvdG9zaG9wIDIxLjIgKE1hY2ludG9zaCkiIHN0RXZ0OmNoYW5nZWQ9Ii8iLz4gPC9yZGY6U2VxPiA8L3htcE1NOkhpc3Rvcnk+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOmU1ZTVlMDlhLTU2ZDQtNDg0MS04NGFkLWViMDE4MWMzMDU2NyIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo0OTYyY2NmYy05YTZjLTQyYTMtYWE1Zi03MjBmZmY5ODQ1NjYiIHN0UmVmOm9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo0OTYyY2NmYy05YTZjLTQyYTMtYWE1Zi03MjBmZmY5ODQ1NjYiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5eCOlfAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAY1BMVEVHcEzOISfOISfOISfOISfOISfOISfOIScaPmAaPmDOISfOISfOISfOIScaPmAaPmDOIScaPmAaPmAaPmAaPmAaPmAaPmAaPmDOIScaPmAaPmDOIScaPmDOIScaPmAaPmDOISe0danWAAAAIHRSTlMATijc6skK9RUKojd/GNhSsX1pKqk7molezLyS5G/u+p2PjuAAAArYSURBVGje7ZqJsqO4DkBN2GxC2HcCyf9/5ZNs4wUMN+mZqXpddd19s4BtSceyJCCE/LZ/uz2WxI/f79gv0tvfpLX/jsMhws/v2GyBHxapF6met/C9O50sDkMjL3wbzV8i82Rqy+AtvIvZAzGvp3p7/vEYtiHgx4PYV8fvW1et31ucvRX62Kyn1r3lJLewAD3uYfFAEo4WpA9N4thCbwfifujlDxaJY/Pv5uza6miJ5bE4eZiLVyjlFiU2cMzr7U8pcqYtqZg0mW9pmnqPubi5SYC44YLE+108yA+WvrUdX5F4zHaXo9XxHP1MggzGwkUHNRLZKQQXTNMwfSTJGYl3nF6ReId6izySky73PyJR7FU4CCk+IWEQlfN48V77KJ3JUBCSJiT1T0lI5c5IaHXOQGgU35EInbhvvnH48QEJU3MhqzjSShfiCUWX9zmJd3hJIkivtoakdfuexN0/blHU2Rx6+4SEeRaXbTn62iNNyZDcEgg8aWCQCHhk3emhSYRzEpqSC2Hl8L5o84FELP+9QzeJaAhc4ch0CW2sSSI+kDBCBdhu9E1Uj6XA3TGEEYRMTSJA0tF9tm1VugqQ3s7lrKwBqTGxacWDRQIS992T7R45SViL/w7u+4RiJQ9lXZB6amIdy41QEXrJcXPBBMXgJdBvGTCZ7qV61vbYkTB8hLtMtByKCKu04IuqSVgpx03CijpbmrD3qEoeioTvOcsmPczwdauv5y9cQV4X7EnokOU/jiS06XxlDFlG1lzsHfYVCTsuyZAwBM5o/RMJVyAxExL36aAofBHQDiSSKxLaZTiJQa+TWWDYh78hYQZMtRGMzGr5948kyDGKJYd6W22oA4niQ58YzFho22hEhtt3JLzAYfR+abfk8TOJaH67IbranoSRLSJHnCjMakF9C4aT8ht11LzCxRtEE+twIBGl8bGqecwnmVJHzHnY2v0sVFwjc5AwNvk+YkZRZJQnhWnwfrGV8ejernpCZJ4DiUOZhuHn5u9rmeW8niiuQsUuSJySeDwet6Gwt5QmUQzLHO602XZ1vN99KlLEJyTCExKbeH/LxoBMUS0CO3l8QsIKFQn5hIS73D6tMRNzV1vx0trvuApfkFAHiiHcUKp0Uni+nTw+ImF0ipc/IxH+fAV2PyMR/SGJzdZ4VvvEn/0tFj18O+59QsIy4DJMnJLwL67AZBKIVM77l3aHqiUBoMoisTJfeYdMHh+Q2AWeq9RBrq+wXCQCdafmg4g5fENCZQkYtquxUCEdRbwPSRxEJ9+SiP3zOzWuWxP+LoveCmcWjf2tiaruQKLQicy+1uB+oEEtNok4UBPb+9T7ocS8JoF3+ebD3btYX1olDuQ2a52KC6uySqLryupmuv/xYkNvHpE8dGV1d9vmBRdX7eckBNOwSNK7S9fZVVkPx5uL1q75stq+myHRrg+5sUNsJY/Pr8Desculz+qJ2+VkcRqFjnuqoYu1rr++uwJTNyfE5Zx5DSLcSZkuIt8PJIxo6RulUBF9WG2fkiD3+GC2EZGCIRIiHhoPv+z4gkSqse/ivqxJfSt5XJMwo2VqRIzTUPE5CbMQ3xzIuE36DocbVKlesY9PH5NQpsvLGC/YLeQttEw3SESquYrLwuKyD+/fkzCvjrfEfHUbU7rEFyTOUsm26Dq3LHbuKGbZkvl+jJZcDSNonISKL0hYN0lPH/oc7sh+TEI7v7waHGIbvEqjInk47+gOB7226iP+IVR8Q8L0uNmxP9y5+1MSqkRXi7Y5yXbRb9wPia7vbRsxRsWF5aj8n5M4Pk8xUtsexHa78WMS6uZEsdt7qki2neSchON5l7W5naHiKxLmvQI1mxtFoB7afUwiOTzvE+IcT0J58jgnMTgfXBppObz/UxJm/aoqu7t/ZOEvjnt51yR28VD7oI5wOpJ4VyTMaHl336twhAr1HP2MhHwenx5/AqCcNpoDi0UcJDfXrwaSh3t2dS/E+KaXMUij44BFkNj/GIGTuKufOuxqXwC7nXCEiiIRbXamlke6nVb34edEtcHoFwby1wlB4NtzRd4mY4n2s29n+BOxeft2s3vcjuokHJ2hytYgi0ae/rq7N2OMmP+737s8BlCzSObhL/pJzW/7bb/tt/223/bbfttv+y8brb8fw2r6N5rKauZGgI2x6lXzdwL/1R8fx+SL6IdfKBMn2rFjeNCcaBtiT4Pzus7y72rgfhzjh/Uo1ZsRY2Ih3BpPtyl3s4mj+bMy1NatL8uyz0n1gg99WbMqJyyvCK0qIbktGaFlS+q+hx45eAGFLoTUZV2PY1X2fc471iVOUNX4CXqXMA1MwfISjuCnFsZXsBpSALCvhC1wAieh8KmicIYSeCc5fu77VksTFpdCTUJafKHlJrwlXGUhs+dGgQwwhKAB/B0PwlEg0cA7TL1rDbRXQ9oO3teV0XEidMoIWClI9C9Qbe1JPb3WZnxNwKVfQYl8rVgJY8ZXzzvmr6xrptcIRjxLGNHBNCMuQEf4pxa7PsGyaWK0GSkco1LA1DUZzML6Z8u6rGY9/HXPmpXjqyS0g0EgTZjcvrIGpGQg5YXWPRuOExUEDYXqrEKbmmdGWZPBUj8Z6eA950fXCdYU3jM54a6NjbB6BPWbUfzBtPxY+QQSWQnmjCCtQvnCxEw4TfUUq5VnOHX1yvmZNuthmgldYK3wE7caFCecAnzfjrF+RK9pwPoyawn/G2txtEa59TghXUmCv8MqwLmOiBf0iQmIcBLNqJwdcOFfmTHSq6PdyKz3XaiQJPJXS2AxTkigeNAE5TewgrDbpA5EkqjkKyfxlCRotY41/4SCgALrwE6bRIuvkkL13JNop1dlkKj4a8l9S5GgHZiMqnASFCdmeAiXaSPBj8J54UTPnpyToOhLrFzPSAAnLrqenn2WV9y9GOezIzFqn2Dlq5m6WqIGCRRX3kFC+ELLTbZI1FnWZHn5bC0SlbB0I8FN3nwCNi2TJPK15SQ6IFE1VJPY5nOTqNcSg9tKaYcbrrFJwC6GmVoQjXo0EBUYX4wn3ZOoe4yvuSABmuXra8wVCVJlOesaRiexxQ0SGF1x8mqq0XMECdgPDAJYR3ckuPe0Gwn0UPQJVpWCwUYCuTKGJHCnbCRgx5FzEphI+RapMdTWWW+TEDsQF4FLfYqplCoGCTVtM/E/iIk5sUiQPAdlOrIjwZcDja8gnqLH4Bd0EpAmd7VBAl+UR6IPbh4PW4VxWYz3aSvuLRYJNc5JggpO9QvyF6vLtbVJoIdTmksSMkywSoXgPCshS1dHEkzEM0UCUgsDAb0cCREip7TuNxJjA+JpBZGAURSCJFglwwRGCCgFuHBYlFzmH543Wgi6mgRoOvGF4rOhtxskhNeckmgFp3qd+q6bVhlROIl6LDmNvGuAe4vWUjnxtlhAAsb1044E67BDjnGG6wiat+OIAp492wQ0MHAcBQk6Pbu+h2QHyLoMtwzmJDCgli4zdl3fAAmaj+s6ycqY5tO6yhk4ibobcVw9QfeuWXElSqRGuT4qvDhJQIUj4nsJY7tyCyichKisagg6Hex/XsYACpRUqqxc9ziuMwoWUeVwMnkpoiPWTRRmMfqBXD5Q9IBBqDrOzfKuy7eaisr+Qruuh5C6TmWtJD1HLRhJtNAFP1a8dy50YETqU/ftCYmsOS/Sy5X+f148mGpZX+iZ739w9TVekXj+bZdZImL+tt/2T9v/AHfcltHCT/TRAAAAAElFTkSuQmCC" alt="Profimex">
+    <span>ניתוח שיווקי שהוכן על ידי AM Consulting · אוקטובר 2026 · מבוסס על מקורות פומביים בלבד</span>
+  </div>
+</footer>
+
+</body>
+</html>
